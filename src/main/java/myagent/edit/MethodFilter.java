@@ -77,7 +77,7 @@ public class MethodFilter {
 	 * @return
 	 */
 	private static boolean isNativeMethod(CtBehavior method){
-		return method.getModifiers() == 265;
+		return Modifier.isNative(method.getModifiers());
 	}
 	
 	/***
@@ -141,13 +141,13 @@ public class MethodFilter {
 	private static boolean isLombokMethod(CtBehavior method){
 		String methodName = method.getName();
 		
-		if(methodName.startsWith("set") && methodName.length() > 3){
+		if(methodName.startsWith("set") && methodName.length() > 3 && !Modifier.isStatic(method.getModifiers())){
 			return true;
 		}
-		if(methodName.startsWith("get") && methodName.length() > 3){
+		if(methodName.startsWith("get") && methodName.length() > 3 && !Modifier.isStatic(method.getModifiers())){
 			return true;
 		}
-		if(methodName.startsWith("is") && methodName.length() > 2){
+		if(methodName.startsWith("is") && methodName.length() > 2 && !Modifier.isStatic(method.getModifiers())){
 			return true;
 		}
 		if(methodName.equals("equals")){
