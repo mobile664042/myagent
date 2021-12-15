@@ -141,13 +141,13 @@ public class MethodFilter {
 	private static boolean isLombokMethod(CtBehavior method){
 		String methodName = method.getName();
 		
-		if(methodName.startsWith("set") && methodName.length() > 3 && !Modifier.isStatic(method.getModifiers())){
+		if(methodName.startsWith("set") && methodName.length() > 3 && !isSpecialModifier(method)){
 			return true;
 		}
-		if(methodName.startsWith("get") && methodName.length() > 3 && !Modifier.isStatic(method.getModifiers())){
+		if(methodName.startsWith("get") && methodName.length() > 3  && !isSpecialModifier(method)){
 			return true;
 		}
-		if(methodName.startsWith("is") && methodName.length() > 2 && !Modifier.isStatic(method.getModifiers())){
+		if(methodName.startsWith("is") && methodName.length() > 2  && !isSpecialModifier(method)){
 			return true;
 		}
 		if(methodName.equals("equals")){
@@ -169,6 +169,21 @@ public class MethodFilter {
 			return true;
 		}
 		if(methodName.equals("wait")){
+			return true;
+		}
+		return false;
+	}
+	private static boolean isSpecialModifier(CtBehavior method){
+		if(Modifier.isStatic(method.getModifiers())){
+			return true;
+		}
+		else if(Modifier.isInterface(method.getModifiers())){
+			return true;
+		}
+		else if(Modifier.isSynchronized(method.getModifiers())){
+			return true;
+		}
+		else if(Modifier.isPrivate(method.getModifiers())){
 			return true;
 		}
 		return false;
