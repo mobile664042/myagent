@@ -1,21 +1,20 @@
- * 打印代码执行堆栈
- * 在一些复杂(特别是开源的或陌生的项目)的方法调用，不知道某些方法的执行过程(调用堆栈)，也很难调试(例如使用接口、代理、异步、reactor、lambda，还不知道在哪里设置断点; 或者没有源码)；通过我的myagent.jar可轻松打印方法的执行过程。
+ * Print code execution stack
+ * In some complex method calls (especially open source or unfamiliar projects), We don’t know the execution process (call stack) of some methods, and it’s difficult to debug (such as using interfaces, proxies, asynchrony, reactor, lambda, but We don’t know yet. Where to set the breakpoint; or there is no source code); The execution process of the method can be easily printed through my myagent.jar.
  * 
- * 使用用如下:
- *java -javaagent:{相对路径或绝对路径}/myagent.jar -jar xxxx.jar
+ * The usage is as follows: *java -javaagent:{relative path or absolute path}/myagent.jar -jar xxxx.jar
  * 
- * 默认是不可以对自身、jdk、javassist、native方法、getter setter等监听
+ * The default is not to monitor itself, jdk, javassist, native method, getter setter, etc.
+ * Create a methodFilter.properties configuration file in the current directory of the operation or d:/tmp (/tmp for linux)
  * 
- * 在运行的根目录下或d:/tmp(linux为/tmp) 创建methodFilter.properties配置文件
-  * 
- * white.methods 为白名单,一定监听的方法,支持末尾用*匹配,多个用,分隔, 格式:{包名}.{类名}.{方法名}, 例如:org.apache.skywalking.*,mytest.*,testdemo*,com.xdd.*
- * white.methods.exclude 为白名单排除的方法,用法与white.methods一样
- * black.methods 为黑名单,一定不监听的方法,支持末尾用*匹配,多个用,分隔, 格式:{包名}.{类名}.{方法名}, 例如:mytest.MyPerson.testSimple*
- * black.methods.exclude 为黑名单排除的方法,用法与white.methods一样
- * log.roll.postfix 更改日志文件后缀(每5秒检查一次文件的内容是否更改)
+ * white.methods is a whitelist, which must be monitored. It supports asterisk matching at the end, multiple use comma to separate, format: {packageName}.{className}.{methodName}, for example: org.apache.skywalking.,mytest .,testdemo,com.xdd.*
+ * white.methods.exclude is the method of whitelist exclusion, the usage is the same as white.methods
+ * black.methods is a blacklist, which must not be monitored. It supports asterisk matching at the end, multiple usescomma to separate, format: {packageName}.{className}.{methodName}, for example: mytest.MyPerson.testSimple
+ * black.methods.exclude is the method of blacklist exclusion, the usage is the same as white.methods
+ * log.roll.postfix change the suffix of the log file (check whether the content of the file has changed every 5 seconds)
  * 
- * 输出的日志路径为d:/tmp/myagent.log.1639232014093.22(linux为/tmp/myagent.log.1639232014093)(.22是使用log.roll.postfix=22)
- * 输出的日志格式为，线程id线程名，_表示一个栈深度, 包名用首字母缩写,方法的开始有时间戳,方法的结束有时间耗时,空行表示存在并行调用,例如:
+ * The output log path is d:/tmp/myagent.log.1639232014093.22 (Linux os MacOs is /tmp/myagent.log.1639232014093) (.22 is to use log.roll.postfix=22)
+ * The output log format is thread id and thread name, _ indicates a stack depth, the package name uses acronyms, the beginning of the method has a timestamp, the end of the method is time-consuming, and a blank line indicates that there are parallel calls, for example:
+
 <pre>
 1main_____m.MyPerson.testStatic.1639364334110
 1main______m.MyPerson$TestInnerClazz.MyPerson$TestInnerClazz.1639364334120
