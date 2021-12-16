@@ -18,7 +18,7 @@ public class MethodEditor {
 			CtClass etype = ClassPool.getDefault().get("java.lang.Exception");
 			method.addCatch("{ myagent.edit.MethodEnhancer.addCatch(); throw $e; }", etype);
 		} catch (Exception e) {
-			MyPrint.println("add method fail !!!!!");
+			MyPrint.println("add method fail !!!! " + method.getLongName());
 			throw new IllegalArgumentException("增加方法失败", e);
 		} 
 	}
