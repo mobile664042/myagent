@@ -1,6 +1,7 @@
 package myagent.edit;
 
 import javassist.CtBehavior;
+import java.lang.reflect.Modifier;
 
 /***
  * 方法过滤
