@@ -32,6 +32,9 @@ public class SimpleTransformer implements ClassFileTransformer {
 		try {
 			//不可以使用 cl = pool.get(className.replaceAll("/", "."));
 			cl = pool.makeClass(new java.io.ByteArrayInputStream(classFileData));
+			if(cl.isInterface()){
+				return cl.toBytecode();
+			}
 			CtBehavior[] methods = cl.getDeclaredBehaviors();
 			for (int i = 0; i < methods.length; i++) {
 				if (methods[i].isEmpty() == false) {
