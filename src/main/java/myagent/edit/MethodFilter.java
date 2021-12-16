@@ -23,6 +23,9 @@ public class MethodFilter {
 		if(isNativeMethod(method)){
 			return false;
 		}
+		if(Modifier.isAbstract(method.getModifiers())){
+			return false;
+		}
 		if(isLangPackageMethod(method)){
 			return false;
 		}
@@ -175,9 +178,6 @@ public class MethodFilter {
 	}
 	private static boolean isSpecialModifier(CtBehavior method){
 		if(Modifier.isStatic(method.getModifiers())){
-			return true;
-		}
-		else if(Modifier.isInterface(method.getModifiers())){
 			return true;
 		}
 		else if(Modifier.isSynchronized(method.getModifiers())){
