@@ -149,10 +149,24 @@ public class MethodFilter {
 			return true;
 		}
 		if(methodName.startsWith("get") && methodName.length() > 3  && !isSpecialModifier(method)){
-			return true;
+			try {
+				if (method.getParameterTypes().length == 0) {
+					return true;
+				}
+				return false;
+			} catch (NotFoundException e) {
+				return false;
+			}
 		}
 		if(methodName.startsWith("is") && methodName.length() > 2  && !isSpecialModifier(method)){
-			return true;
+			try {
+				if (method.getParameterTypes().length == 0) {
+					return true;
+				}
+				return false;
+			} catch (NotFoundException e) {
+				return false;
+			}
 		}
 		if(methodName.equals("equals")){
 			return true;
