@@ -11,6 +11,7 @@
  * black.methods is a blacklist, which must not be monitored. It supports asterisk matching at the end, multiple usescomma to separate, format: {packageName}.{className}.{methodName}, for example: mytest.MyPerson.testSimple
  * black.methods.exclude is the method of blacklist exclusion, the usage is the same as white.methods
  * log.roll.postfix change the suffix of the log file (check whether the content of the file has changed every 5 seconds)
+ * log.enabled  print the log (default value is true)
  * 
  * The output log path is d:/tmp/myagent.log.1639232014093.22 (Linux os MacOs is /tmp/myagent.log.1639232014093) (.22 is to use log.roll.postfix=22)
  * The output log format is thread id and thread name, _ indicates a stack depth, the package name uses acronyms, the beginning of the method has a timestamp, the end of the method is time-consuming, and a blank line indicates that there are parallel calls, for example:
