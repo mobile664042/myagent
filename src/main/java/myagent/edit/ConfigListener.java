@@ -22,6 +22,7 @@ public class ConfigListener {
 	private static final String BLACK_METHODS_EXCLUDE = "black.methods.exclude";
 	
 	private static final String ROLL_POSTFIX  = "log.roll.postfix";
+	private static final String LOG_ENABLED  = "log.enabled";
 	
 	private static final HashSet<String> WHITE_METHODS_SET = new HashSet<String>();
 	private static final HashSet<String> WHITE_METHODS_EXCLUDE_SET = new HashSet<String>();
@@ -179,6 +180,12 @@ public class ConfigListener {
 			for (String key : sets) {
 				sb.append(key + "=" + prop.getProperty(key)).append("\n");
 			}
+			
+			String logEnabledStr = (String)lastProp.get(LOG_ENABLED);
+			if(logEnabledStr != null && logEnabledStr.trim().length() > 0){
+				lastEnabled = new Boolean(logEnabledStr.trim());
+			}
+			
 			sb.append("----------------\n");
 			MyPrint.println(file.getAbsolutePath() + " had loaded !!! " + sb);
 		} finally {
