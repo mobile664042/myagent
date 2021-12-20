@@ -37,6 +37,10 @@ public class MyLogUtil {
 	}
 
 	public static synchronized void log(String str) {
+		if(!ConfigListener.isLastEnabled()){
+			return;
+		}
+		
 		try {
 			byte []data = (str + "\n").getBytes("utf-8");
 			
