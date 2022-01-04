@@ -33,6 +33,9 @@ public class MethodFilter {
 		if(isJavassistMethod(method)){
 			return false;
 		}
+		if(isEnhancerByOther(method)){
+			return false;
+		}
 		
 		String methodName = method.getLongName();
 		if(ConfigListener.isAbsoluteWhiteMethod(methodName)){
@@ -94,6 +97,20 @@ public class MethodFilter {
 		return method.getLongName().startsWith("javassist.");
 	}
 	
+	/***
+	 * 是否已被增强
+	 */
+	public static boolean isEnhancerByOther(CtBehavior method) {
+		String methodName = method.getLongName();
+		boolean result = methodName.contains("$$EnhancerBySpringCGLIB$$") || methodName.contains("$$EnhancerByCGLIB$$");
+		if(result){
+			return true;
+		}
+
+		//is asm?
+
+		return result;
+	}	
 	
 	/***
 	 * 判断是否是jdk方法
